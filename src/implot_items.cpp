@@ -1573,7 +1573,7 @@ void PlotLineEx(const char* label_id, const _Getter& getter, ImPlotLineFlags fla
 
 template <typename T>
 void PlotLine(const char* label_id, const T* values, int count, double xscale, double x0, ImPlotLineFlags flags, int offset, int stride) {
-    GetterXY<IndexerLin,IndexerIdx<T>> getter(IndexerLin(xscale,x0),IndexerIdx<T>(values,count,offset,stride),count);
+    GetterXY<IndexerLin,IndexerIdx<T> > getter(IndexerLin(xscale,x0),IndexerIdx<T>(values,count,offset,stride),count);
     PlotLineEx(label_id, getter, flags);
 }
 
@@ -1590,7 +1590,7 @@ template IMPLOT_API void PlotLine<double>(const char* label_id, const double* va
 
 template <typename T>
 void PlotLine(const char* label_id, const T* xs, const T* ys, int count, ImPlotLineFlags flags, int offset, int stride) {
-    GetterXY<IndexerIdx<T>,IndexerIdx<T>> getter(IndexerIdx<T>(xs,count,offset,stride),IndexerIdx<T>(ys,count,offset,stride),count);
+    GetterXY<IndexerIdx<T>,IndexerIdx<T> > getter(IndexerIdx<T>(xs,count,offset,stride),IndexerIdx<T>(ys,count,offset,stride),count);
     PlotLineEx(label_id, getter, flags);
 }
 
@@ -1635,7 +1635,7 @@ void PlotScatterEx(const char* label_id, const Getter& getter, ImPlotScatterFlag
 
 template <typename T>
 void PlotScatter(const char* label_id, const T* values, int count, double xscale, double x0, ImPlotScatterFlags flags, int offset, int stride) {
-    GetterXY<IndexerLin,IndexerIdx<T>> getter(IndexerLin(xscale,x0),IndexerIdx<T>(values,count,offset,stride),count);
+    GetterXY<IndexerLin,IndexerIdx<T> > getter(IndexerLin(xscale,x0),IndexerIdx<T>(values,count,offset,stride),count);
     PlotScatterEx(label_id, getter, flags);
 }
 
@@ -1652,7 +1652,7 @@ template IMPLOT_API void PlotScatter<double>(const char* label_id, const double*
 
 template <typename T>
 void PlotScatter(const char* label_id, const T* xs, const T* ys, int count, ImPlotScatterFlags flags, int offset, int stride) {
-    GetterXY<IndexerIdx<T>,IndexerIdx<T>> getter(IndexerIdx<T>(xs,count,offset,stride),IndexerIdx<T>(ys,count,offset,stride),count);
+    GetterXY<IndexerIdx<T>,IndexerIdx<T> > getter(IndexerIdx<T>(xs,count,offset,stride),IndexerIdx<T>(ys,count,offset,stride),count);
     return PlotScatterEx(label_id, getter, flags);
 }
 
@@ -1711,7 +1711,7 @@ void PlotStairsEx(const char* label_id, const Getter& getter, ImPlotStairsFlags 
 
 template <typename T>
 void PlotStairs(const char* label_id, const T* values, int count, double xscale, double x0, ImPlotStairsFlags flags, int offset, int stride) {
-    GetterXY<IndexerLin,IndexerIdx<T>> getter(IndexerLin(xscale,x0),IndexerIdx<T>(values,count,offset,stride),count);
+    GetterXY<IndexerLin,IndexerIdx<T> > getter(IndexerLin(xscale,x0),IndexerIdx<T>(values,count,offset,stride),count);
     PlotStairsEx(label_id, getter, flags);
 }
 
@@ -1728,7 +1728,7 @@ template IMPLOT_API void PlotStairs<double>(const char* label_id, const double* 
 
 template <typename T>
 void PlotStairs(const char* label_id, const T* xs, const T* ys, int count, ImPlotStairsFlags flags, int offset, int stride) {
-    GetterXY<IndexerIdx<T>,IndexerIdx<T>> getter(IndexerIdx<T>(xs,count,offset,stride),IndexerIdx<T>(ys,count,offset,stride),count);
+    GetterXY<IndexerIdx<T>,IndexerIdx<T> > getter(IndexerIdx<T>(xs,count,offset,stride),IndexerIdx<T>(ys,count,offset,stride),count);
     return PlotStairsEx(label_id, getter, flags);
 }
 
@@ -1771,7 +1771,7 @@ void PlotShaded(const char* label_id, const T* values, int count, double y_ref, 
         y_ref = GetPlotLimits(IMPLOT_AUTO,IMPLOT_AUTO).Y.Min;
     if (!(y_ref < DBL_MAX))
         y_ref = GetPlotLimits(IMPLOT_AUTO,IMPLOT_AUTO).Y.Max;
-    GetterXY<IndexerLin,IndexerIdx<T>> getter1(IndexerLin(xscale,x0),IndexerIdx<T>(values,count,offset,stride),count);
+    GetterXY<IndexerLin,IndexerIdx<T> > getter1(IndexerLin(xscale,x0),IndexerIdx<T>(values,count,offset,stride),count);
     GetterXY<IndexerLin,IndexerConst>  getter2(IndexerLin(xscale,x0),IndexerConst(y_ref),count);
     PlotShadedEx(label_id, getter1, getter2, flags);
 }
@@ -1793,7 +1793,7 @@ void PlotShaded(const char* label_id, const T* xs, const T* ys, int count, doubl
         y_ref = GetPlotLimits(IMPLOT_AUTO,IMPLOT_AUTO).Y.Min;
     if (y_ref == HUGE_VAL)
         y_ref = GetPlotLimits(IMPLOT_AUTO,IMPLOT_AUTO).Y.Max;
-    GetterXY<IndexerIdx<T>,IndexerIdx<T>> getter1(IndexerIdx<T>(xs,count,offset,stride),IndexerIdx<T>(ys,count,offset,stride),count);
+    GetterXY<IndexerIdx<T>,IndexerIdx<T> > getter1(IndexerIdx<T>(xs,count,offset,stride),IndexerIdx<T>(ys,count,offset,stride),count);
     GetterXY<IndexerIdx<T>,IndexerConst>  getter2(IndexerIdx<T>(xs,count,offset,stride),IndexerConst(y_ref),count);
     PlotShadedEx(label_id, getter1, getter2, flags);
 }
@@ -1811,8 +1811,8 @@ template IMPLOT_API void PlotShaded<double>(const char* label_id, const double* 
 
 template <typename T>
 void PlotShaded(const char* label_id, const T* xs, const T* ys1, const T* ys2, int count, ImPlotShadedFlags flags, int offset, int stride) {
-    GetterXY<IndexerIdx<T>,IndexerIdx<T>> getter1(IndexerIdx<T>(xs,count,offset,stride),IndexerIdx<T>(ys1,count,offset,stride),count);
-    GetterXY<IndexerIdx<T>,IndexerIdx<T>> getter2(IndexerIdx<T>(xs,count,offset,stride),IndexerIdx<T>(ys2,count,offset,stride),count);
+    GetterXY<IndexerIdx<T>,IndexerIdx<T> > getter1(IndexerIdx<T>(xs,count,offset,stride),IndexerIdx<T>(ys1,count,offset,stride),count);
+    GetterXY<IndexerIdx<T>,IndexerIdx<T> > getter2(IndexerIdx<T>(xs,count,offset,stride),IndexerIdx<T>(ys2,count,offset,stride),count);
     PlotShadedEx(label_id, getter1, getter2, flags);
 }
 
@@ -1886,7 +1886,7 @@ void PlotBars(const char* label_id, const T* values, int count, double bar_size,
         PlotBarsHEx(label_id, getter1, getter2, bar_size, flags);
     }
     else {
-        GetterXY<IndexerLin,IndexerIdx<T>> getter1(IndexerLin(1.0,shift),IndexerIdx<T>(values,count,offset,stride),count);
+        GetterXY<IndexerLin,IndexerIdx<T> > getter1(IndexerLin(1.0,shift),IndexerIdx<T>(values,count,offset,stride),count);
         GetterXY<IndexerLin,IndexerConst>  getter2(IndexerLin(1.0,shift),IndexerConst(0),count);
         PlotBarsVEx(label_id, getter1, getter2, bar_size, flags);
     }
@@ -1906,12 +1906,12 @@ template IMPLOT_API void PlotBars<double>(const char* label_id, const double* va
 template <typename T>
 void PlotBars(const char* label_id, const T* xs, const T* ys, int count, double bar_size, ImPlotBarsFlags flags, int offset, int stride) {
     if (ImHasFlag(flags, ImPlotBarsFlags_Horizontal)) {
-        GetterXY<IndexerIdx<T>,IndexerIdx<T>> getter1(IndexerIdx<T>(xs,count,offset,stride),IndexerIdx<T>(ys,count,offset,stride),count);
-        GetterXY<IndexerConst, IndexerIdx<T>> getter2(IndexerConst(0),IndexerIdx<T>(ys,count,offset,stride),count);
+        GetterXY<IndexerIdx<T>,IndexerIdx<T> > getter1(IndexerIdx<T>(xs,count,offset,stride),IndexerIdx<T>(ys,count,offset,stride),count);
+        GetterXY<IndexerConst, IndexerIdx<T> > getter2(IndexerConst(0),IndexerIdx<T>(ys,count,offset,stride),count);
         PlotBarsHEx(label_id, getter1, getter2, bar_size, flags);
     }
     else {
-        GetterXY<IndexerIdx<T>,IndexerIdx<T>> getter1(IndexerIdx<T>(xs,count,offset,stride),IndexerIdx<T>(ys,count,offset,stride),count);
+        GetterXY<IndexerIdx<T>,IndexerIdx<T> > getter1(IndexerIdx<T>(xs,count,offset,stride),IndexerIdx<T>(ys,count,offset,stride),count);
         GetterXY<IndexerIdx<T>,IndexerConst>  getter2(IndexerIdx<T>(xs,count,offset,stride),IndexerConst(0),count);
         PlotBarsVEx(label_id, getter1, getter2, bar_size, flags);
     }
@@ -1998,8 +1998,8 @@ void PlotBarGroups(const char* const label_ids[], const T* values, int item_coun
                         }
                     }
                 }
-                GetterXY<IndexerLin,IndexerIdx<double>> getter1(IndexerLin(1.0,shift),IndexerIdx<double>(curr_min,group_count),group_count);
-                GetterXY<IndexerLin,IndexerIdx<double>> getter2(IndexerLin(1.0,shift),IndexerIdx<double>(curr_max,group_count),group_count);
+                GetterXY<IndexerLin,IndexerIdx<double> > getter1(IndexerLin(1.0,shift),IndexerIdx<double>(curr_min,group_count),group_count);
+                GetterXY<IndexerLin,IndexerIdx<double> > getter2(IndexerLin(1.0,shift),IndexerIdx<double>(curr_max,group_count),group_count);
                 PlotBarsVEx(label_ids[i],getter1,getter2,group_size,0);
             }
         }
@@ -2102,17 +2102,17 @@ void PlotErrorBars(const char* label_id, const T* xs, const T* ys, const T* neg,
     IndexerIdx<T> indexer_p(pos,count,offset,stride);
     GetterError<T> getter(xs, ys, neg, pos, count, offset, stride);
     if (ImHasFlag(flags, ImPlotErrorBarsFlags_Horizontal)) {
-        IndexerAdd<IndexerIdx<T>,IndexerIdx<T>> indexer_xp(indexer_x, indexer_p, 1,  1);
-        IndexerAdd<IndexerIdx<T>,IndexerIdx<T>> indexer_xn(indexer_x, indexer_n, 1, -1);
-        GetterXY<IndexerAdd<IndexerIdx<T>,IndexerIdx<T>>,IndexerIdx<T>> getter_p(indexer_xp, indexer_y, count);
-        GetterXY<IndexerAdd<IndexerIdx<T>,IndexerIdx<T>>,IndexerIdx<T>> getter_n(indexer_xn, indexer_y, count);
+        IndexerAdd<IndexerIdx<T>,IndexerIdx<T> > indexer_xp(indexer_x, indexer_p, 1,  1);
+        IndexerAdd<IndexerIdx<T>,IndexerIdx<T> > indexer_xn(indexer_x, indexer_n, 1, -1);
+        GetterXY<IndexerAdd<IndexerIdx<T>,IndexerIdx<T> >,IndexerIdx<T> > getter_p(indexer_xp, indexer_y, count);
+        GetterXY<IndexerAdd<IndexerIdx<T>,IndexerIdx<T> >,IndexerIdx<T> > getter_n(indexer_xn, indexer_y, count);
         PlotErrorBarsHEx(label_id, getter_p, getter_n, flags);
     }
     else {
-        IndexerAdd<IndexerIdx<T>,IndexerIdx<T>> indexer_yp(indexer_y, indexer_p, 1,  1);
-        IndexerAdd<IndexerIdx<T>,IndexerIdx<T>> indexer_yn(indexer_y, indexer_n, 1, -1);
-        GetterXY<IndexerIdx<T>,IndexerAdd<IndexerIdx<T>,IndexerIdx<T>>> getter_p(indexer_x, indexer_yp, count);
-        GetterXY<IndexerIdx<T>,IndexerAdd<IndexerIdx<T>,IndexerIdx<T>>> getter_n(indexer_x, indexer_yn, count);
+        IndexerAdd<IndexerIdx<T>,IndexerIdx<T> > indexer_yp(indexer_y, indexer_p, 1,  1);
+        IndexerAdd<IndexerIdx<T>,IndexerIdx<T> > indexer_yn(indexer_y, indexer_n, 1, -1);
+        GetterXY<IndexerIdx<T>,IndexerAdd<IndexerIdx<T>,IndexerIdx<T> >> getter_p(indexer_x, indexer_yp, count);
+        GetterXY<IndexerIdx<T>,IndexerAdd<IndexerIdx<T>,IndexerIdx<T> >> getter_n(indexer_x, indexer_yn, count);
         PlotErrorBarsVEx(label_id, getter_p, getter_n, flags);
     }
 }
@@ -2161,7 +2161,7 @@ void PlotStems(const char* label_id, const T* values, int count, double ref, dou
         PlotStemsEx(label_id, get_mark, get_base, flags);
     }
     else {
-        GetterXY<IndexerLin,IndexerIdx<T>> get_mark(IndexerLin(scale,start),IndexerIdx<T>(values,count,offset,stride),count);
+        GetterXY<IndexerLin,IndexerIdx<T> > get_mark(IndexerLin(scale,start),IndexerIdx<T>(values,count,offset,stride),count);
         GetterXY<IndexerLin,IndexerConst>  get_base(IndexerLin(scale,start),IndexerConst(ref),count);
         PlotStemsEx(label_id, get_mark, get_base, flags);
     }
@@ -2181,12 +2181,12 @@ template IMPLOT_API void PlotStems<double>(const char* label_id, const double* v
 template <typename T>
 void PlotStems(const char* label_id, const T* xs, const T* ys, int count, double ref, ImPlotStemsFlags flags, int offset, int stride) {
     if (ImHasFlag(flags, ImPlotStemsFlags_Horizontal)) {
-        GetterXY<IndexerIdx<T>,IndexerIdx<T>> get_mark(IndexerIdx<T>(xs,count,offset,stride),IndexerIdx<T>(ys,count,offset,stride),count);
-        GetterXY<IndexerConst,IndexerIdx<T>>  get_base(IndexerConst(ref),IndexerIdx<T>(ys,count,offset,stride),count);
+        GetterXY<IndexerIdx<T>,IndexerIdx<T> > get_mark(IndexerIdx<T>(xs,count,offset,stride),IndexerIdx<T>(ys,count,offset,stride),count);
+        GetterXY<IndexerConst,IndexerIdx<T> >  get_base(IndexerConst(ref),IndexerIdx<T>(ys,count,offset,stride),count);
         PlotStemsEx(label_id, get_mark, get_base, flags);
     }
     else {
-        GetterXY<IndexerIdx<T>,IndexerIdx<T>> get_mark(IndexerIdx<T>(xs,count,offset,stride),IndexerIdx<T>(ys,count,offset,stride),count);
+        GetterXY<IndexerIdx<T>,IndexerIdx<T> > get_mark(IndexerIdx<T>(xs,count,offset,stride),IndexerIdx<T>(ys,count,offset,stride),count);
         GetterXY<IndexerIdx<T>,IndexerConst>  get_base(IndexerIdx<T>(xs,count,offset,stride),IndexerConst(ref),count);
         PlotStemsEx(label_id, get_mark, get_base, flags);
     }
@@ -2211,9 +2211,9 @@ template <typename T>
 void PlotInfLines(const char* label_id, const T* values, int count, ImPlotInfLinesFlags flags, int offset, int stride) {
     const ImPlotRect lims = GetPlotLimits(IMPLOT_AUTO,IMPLOT_AUTO);
     if (ImHasFlag(flags, ImPlotInfLinesFlags_Horizontal)) {
-        GetterXY<IndexerConst,IndexerIdx<T>> get_min(IndexerConst(lims.X.Min),IndexerIdx<T>(values,count,offset,stride),count);
-        GetterXY<IndexerConst,IndexerIdx<T>> get_max(IndexerConst(lims.X.Max),IndexerIdx<T>(values,count,offset,stride),count);
-        if (BeginItemEx(label_id, FitterY<GetterXY<IndexerConst,IndexerIdx<T>>>(get_min), flags, ImPlotCol_Line)) {
+        GetterXY<IndexerConst,IndexerIdx<T> > get_min(IndexerConst(lims.X.Min),IndexerIdx<T>(values,count,offset,stride),count);
+        GetterXY<IndexerConst,IndexerIdx<T> > get_max(IndexerConst(lims.X.Max),IndexerIdx<T>(values,count,offset,stride),count);
+        if (BeginItemEx(label_id, FitterY<GetterXY<IndexerConst,IndexerIdx<T> >>(get_min), flags, ImPlotCol_Line)) {
             const ImPlotNextItemData& s = GetItemData();
             const ImU32 col_line = ImGui::GetColorU32(s.Colors[ImPlotCol_Line]);
             if (s.RenderLine)
@@ -2224,7 +2224,7 @@ void PlotInfLines(const char* label_id, const T* values, int count, ImPlotInfLin
     else {
         GetterXY<IndexerIdx<T>,IndexerConst> get_min(IndexerIdx<T>(values,count,offset,stride),IndexerConst(lims.Y.Min),count);
         GetterXY<IndexerIdx<T>,IndexerConst> get_max(IndexerIdx<T>(values,count,offset,stride),IndexerConst(lims.Y.Max),count);
-        if (BeginItemEx(label_id, FitterX<GetterXY<IndexerIdx<T>,IndexerConst>>(get_min), flags, ImPlotCol_Line)) {
+        if (BeginItemEx(label_id, FitterX<GetterXY<IndexerIdx<T>,IndexerConst> >(get_min), flags, ImPlotCol_Line)) {
             const ImPlotNextItemData& s = GetItemData();
             const ImU32 col_line = ImGui::GetColorU32(s.Colors[ImPlotCol_Line]);
             if (s.RenderLine)
@@ -2741,7 +2741,7 @@ void PlotDigitalEx(const char* label_id, Getter getter, ImPlotDigitalFlags flags
 
 template <typename T>
 void PlotDigital(const char* label_id, const T* xs, const T* ys, int count, ImPlotDigitalFlags flags, int offset, int stride) {
-    GetterXY<IndexerIdx<T>,IndexerIdx<T>> getter(IndexerIdx<T>(xs,count,offset,stride),IndexerIdx<T>(ys,count,offset,stride),count);
+    GetterXY<IndexerIdx<T>,IndexerIdx<T> > getter(IndexerIdx<T>(xs,count,offset,stride),IndexerIdx<T>(ys,count,offset,stride),count);
     return PlotDigitalEx(label_id, getter, flags);
 }
 
