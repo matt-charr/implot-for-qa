@@ -2111,8 +2111,8 @@ void PlotErrorBars(const char* label_id, const T* xs, const T* ys, const T* neg,
     else {
         IndexerAdd<IndexerIdx<T>,IndexerIdx<T> > indexer_yp(indexer_y, indexer_p, 1,  1);
         IndexerAdd<IndexerIdx<T>,IndexerIdx<T> > indexer_yn(indexer_y, indexer_n, 1, -1);
-        GetterXY<IndexerIdx<T>,IndexerAdd<IndexerIdx<T>,IndexerIdx<T> >> getter_p(indexer_x, indexer_yp, count);
-        GetterXY<IndexerIdx<T>,IndexerAdd<IndexerIdx<T>,IndexerIdx<T> >> getter_n(indexer_x, indexer_yn, count);
+        GetterXY<IndexerIdx<T>,IndexerAdd<IndexerIdx<T>,IndexerIdx<T> > > getter_p(indexer_x, indexer_yp, count);
+        GetterXY<IndexerIdx<T>,IndexerAdd<IndexerIdx<T>,IndexerIdx<T> > > getter_n(indexer_x, indexer_yn, count);
         PlotErrorBarsVEx(label_id, getter_p, getter_n, flags);
     }
 }
@@ -2213,7 +2213,7 @@ void PlotInfLines(const char* label_id, const T* values, int count, ImPlotInfLin
     if (ImHasFlag(flags, ImPlotInfLinesFlags_Horizontal)) {
         GetterXY<IndexerConst,IndexerIdx<T> > get_min(IndexerConst(lims.X.Min),IndexerIdx<T>(values,count,offset,stride),count);
         GetterXY<IndexerConst,IndexerIdx<T> > get_max(IndexerConst(lims.X.Max),IndexerIdx<T>(values,count,offset,stride),count);
-        if (BeginItemEx(label_id, FitterY<GetterXY<IndexerConst,IndexerIdx<T> >>(get_min), flags, ImPlotCol_Line)) {
+        if (BeginItemEx(label_id, FitterY<GetterXY<IndexerConst,IndexerIdx<T> > >(get_min), flags, ImPlotCol_Line)) {
             const ImPlotNextItemData& s = GetItemData();
             const ImU32 col_line = ImGui::GetColorU32(s.Colors[ImPlotCol_Line]);
             if (s.RenderLine)
